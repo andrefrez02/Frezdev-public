@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FrezDev | Front-end, automação e integrações para projetos web</title>
+  <meta name="description"
+    content="FrezDev desenvolve landing pages, interfaces, automações e integrações enxutas para projetos web com foco em clareza visual, operação e produto.">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#f7f1e8">
+  <link rel="canonical" href="https://frezdev.com.br/">
+  <link rel="icon" href="/logo-principal.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/logo-principal-lg.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/react-vendor-i_nGBwMY.js"></script>
+  <script type="module" crossorigin src="/assets/BrandMark-wEOlzkbt.js"></script>
+  <script type="module" crossorigin src="/assets/vendor-BfMK7RDe.js"></script>
+  <script type="module" crossorigin src="/assets/main-x0kHRVOU.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-Bqcwu3nY.css">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://frezdev.com.br/sitemap.xml

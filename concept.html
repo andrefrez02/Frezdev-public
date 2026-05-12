@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ace2Z | Full Deck Solutions</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=VT323&display=swap"
+    rel="stylesheet">
+  <link rel="shortcut icon" href="logo-principal-lg.svg" type="image/x-icon">
+
+  <style>
+    :root {
+      --bg-void: #110b11;
+      --card-base: #fbf5de;
+      --fire-red: #ff4d4d;
+      --fire-orange: #ff9e2c;
+      --text-main: #fbf5de;
+      --text-dim: #a89f91;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-void);
+      color: var(--text-main);
+      font-family: 'Roboto Mono', monospace;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* --- BACKGROUND BALATRO (CSS PURO) --- */
+    .balatro-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      /* Fica atrás de tudo */
+      background: #0a050a;
+      overflow: hidden;
+    }
+
+    /* Camada 1: O "Plasma" Vermelho */
+    .balatro-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-conic-gradient(from 0deg,
+          transparent 0deg,
+          var(--fire-red) 30deg,
+          transparent 60deg,
+          var(--bg-void) 90deg);
+      filter: blur(80px);
+      /* O segredo do efeito líquido */
+      opacity: 0.4;
+      animation: spin 20s linear infinite;
+    }
+
+    /* Camada 2: O "Plasma" Laranja (Gira ao contrário) */
+    .balatro-bg::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-conic-gradient(from 180deg,
+          transparent 0deg,
+          var(--fire-orange) 40deg,
+          transparent 80deg,
+          var(--bg-void) 120deg);
+      filter: blur(100px);
+      opacity: 0.3;
+      animation: spin-reverse 25s linear infinite;
+      mix-blend-mode: screen;
+      /* Mistura as cores como luz */
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin-reverse {
+      100% {
+        transform: rotate(-360deg);
+      }
+    }
+
+    /* --- SCANLINES (CRT) --- */
+    .crt-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.6;
+    }
+
+    .crt-overlay::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+    }
+
+    /* --- LAYOUT --- */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- HEADER & TYPOGRAPHY --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 2px solid rgba(255, 77, 77, 0.3);
+      margin-bottom: 3rem;
+      background: rgba(17, 11, 17, 0.6);
+      /* Vidro */
+      backdrop-filter: blur(5px);
+    }
+
+    .logo-text {
+      font-family: 'VT323', monospace;
+      font-size: 2rem;
+      color: var(--fire-red);
+      text-shadow: 2px 2px 0px var(--fire-orange);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    nav a {
+      font-family: 'VT323', monospace;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--fire-orange);
+      text-shadow: 0 0 8px var(--fire-red);
+    }
+
+    /* --- HERO --- */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      min-height: 60vh;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    h1.hero-title {
+      font-family: 'VT323', monospace;
+      font-size: 5rem;
+      line-height: 0.9;
+      margin-bottom: 1rem;
+      background: linear-gradient(to bottom, var(--fire-red), var(--fire-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0px 0px 5px rgba(255, 77, 77, 0.5));
+    }
+
+    p.hero-subtitle {
+      font-size: 1.1rem;
+      color: #ddd;
+      margin-bottom: 2rem;
+      max-width: 400px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--fire-red);
+      color: var(--bg-void);
+      padding: 15px 30px;
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      text-decoration: none;
+      box-shadow: 4px 4px 0px var(--fire-orange);
+      transition: 0.1s;
+    }
+
+    .btn:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px var(--fire-orange);
+      background: #ff6b6b;
+    }
+
+    /* --- CARD (SUA VERSÃO ATUALIZADA) --- */
+    .card-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    .poker-card {
+      width: 240px;
+      height: 340px;
+      background-color: var(--card-base);
+      border-radius: 15px;
+      position: relative;
+      transform: rotateY(-15deg) rotateZ(5deg);
+      transition: transform 0.4s ease;
+      box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 77, 77, 0.3);
+      border: 8px solid #333;
+      background-image: radial-gradient(#e6dfc8 20%, transparent 20%);
+      background-size: 20px 20px;
+    }
+
+    .poker-card:hover {
+      transform: rotateY(0deg) rotateZ(0deg) scale(1.05);
+      box-shadow: 0 0 50px var(--fire-red);
+      z-index: 10;
+    }
+
+    .card-corner {
+      position: absolute;
+      font-family: 'VT323', monospace;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #111;
+      line-height: 1;
+    }
+
+    .top-left {
+      top: 10px;
+      left: 15px;
+    }
+
+    .bottom-right {
+      bottom: 10px;
+      right: 15px;
+      transform: rotate(180deg);
+    }
+
+    /* --- SEU CÓDIGO AQUI --- */
+    .card-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      /* rotate(270deg) faz a tag ficar vertical */
+      transform: translate(-50%, -50%) rotate(270deg);
+      font-size: 6rem;
+      color: var(--fire-red);
+      text-shadow: 2px 2px 0px #000;
+      font-family: monospace;
+      white-space: nowrap;
+      /* Garante que não quebre a linha */
+    }
+
+    /* Ajuste do pseudo-elemento para centralizar bem */
+    .card-center::after {
+      content: "</>";
+      position: relative;
+      letter-spacing: -10px;
+      /* Ajustei para ficar mais juntinho */
+    }
+
+    /* --- GRID PROJETOS --- */
+    .section-title {
+      font-family: 'VT323', monospace;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      border-left: 5px solid var(--fire-orange);
+      padding-left: 15px;
+      margin-top: 4rem;
+      text-shadow: 2px 2px 0px #000;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .project-card {
+      background: rgba(26, 21, 26, 0.8);
+      /* Translúcido */
+      border: 2px solid #332b33;
+      padding: 20px;
+      border-radius: 8px;
+      transition: 0.3s;
+      backdrop-filter: blur(5px);
+    }
+
+    .project-card:hover {
+      border-color: var(--fire-orange);
+      box-shadow: 0 0 15px rgba(255, 158, 44, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .project-card h3 {
+      font-family: 'VT323', monospace;
+      font-size: 1.8rem;
+      color: var(--fire-red);
+      margin-bottom: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      background: #332b33;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 5px;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 3.5rem !important;
+      }
+
+      .poker-card {
+        transform: rotate(0deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="balatro-bg"></div>
+  <div class="crt-overlay"></div>
+
+  <div class="container">
+    <header>
+      <div class="logo-text">ACE2Z</div>
+      <nav>
+        <ul>
+          <li><a href="#">Projetos</a></li>
+          <li><a href="#">Sobre</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <p class="hero-subtitle">OLÁ, EU SOU O ANDRÉ FREZARINI</p>
+          <h1 class="hero-title">FULL DECK<br>SOLUTIONS</h1>
+          <p class="hero-subtitle">Desenvolvimento Frontend e Automação. Do Ás ao Z, a estratégia completa.</p>
+          <a href="#" class="btn">VER PORTFOLIO</a>
+        </div>
+
+        <div class="card-visual">
+          <div class="poker-card">
+            <div class="card-corner top-left">A</div>
+
+            <div class="card-center"></div>
+
+            <div class="card-corner bottom-right">Z</div>
+          </div>
+        </div>
+      </section>
+
+      <h2 class="section-title">HAND PLAYED</h2>
+      <div class="grid">
+        <div class="project-card">
+          <h3>Automação Python</h3>
+          <p style="margin-bottom: 15px; color: #ddd;">Script de scraping com Selenium.</p>
+          <div><span class="tag">Python</span><span class="tag">Selenium</span></div>
+        </div>
+        <div class="project-card">
+          <h3>Portfolio React</h3>
+          <p style="margin-bottom: 15px; color: #ddd;">Interface Balatro Style com Next.js.</p>
+          <div><span class="tag">React</span><span class="tag">Next.js</span></div>
+        </div>
+        <div class="project-card">
+          <h3>API .NET Core</h3>
+          <p style="margin-bottom: 15px; color: #ddd;">Backend robusto para Vendas.</p>
+          <div><span class="tag">C#</span><span class="tag">.NET 8</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

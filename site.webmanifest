@@ -1,0 +1,17 @@
+{
+  "name": "FrezDev",
+  "short_name": "FrezDev",
+  "description": "Front-end, automação e integrações para projetos web.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f1e8",
+  "theme_color": "#0f1115",
+  "icons": [
+    {
+      "src": "/logo-principal.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
