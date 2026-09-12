@@ -1,1 +1,0 @@
-import"./useSiteTheme-Cw7YevSY.js";import{c as t,j as e,R as o}from"./react-vendor-i_nGBwMY.js";import{P as r}from"./profile-Cc2QyCuV.js";import"./vendor-ydrMnpYe.js";t.createRoot(document.getElementById("root")).render(e.jsx(o.StrictMode,{children:e.jsx(r,{lang:"en"})}));

@@ -1,0 +1,1 @@
+import{c as e,j as t,R as o}from"./react-vendor-i_nGBwMY.js";import{A as r}from"./main-yj83dAwx.js";e.createRoot(document.getElementById("root")).render(t.jsx(o.StrictMode,{children:t.jsx(r,{lang:"pt"})}));
